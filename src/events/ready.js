@@ -8,6 +8,8 @@ module.exports = (client) => {
     
     require("../managers/classManager")(client)
     
+    client.managers.StaffStatus()
+    
     try {
         client.handlers.loadCommands()
         

@@ -15,11 +15,22 @@ module.exports.staff = {
         activities: [],
         devices: null,
         since: null
+    }, 
+    activity: {
+        status: "online", 
+        since: null, 
+        lastWarnAt: null, 
+        warned: false, 
+        warnCount: 0
     }
 }
 
 module.exports.giveaway = {
     
+}
+
+module.exports.messages = {
+    staffStatusID: null
 }
 
 module.exports.timers = {

@@ -1,6 +1,7 @@
 module.exports = (client, userID) => {
     const data = client.deep({...client.utils.variables.staff}, (client.db.get(`staff_${userID}`) || {}))
     
+    if (!data.activity.since) data.activity.since = Date.now()
     
     data.channels = (sort = false, hideTickets = false) => {
         const total = Object.values(data.messages).reduce((x, y) => x + (hideTickets && y.name.includes("ticket") ? 0 : y.amount), 0)

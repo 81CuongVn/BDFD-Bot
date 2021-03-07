@@ -22,10 +22,10 @@ module.exports = (client) => {
             right: "▶️",
             mark: "❌",
             check: "✅",
-            online: ":green_circle:",
-            idle: ":yellow_circle:",
-            dnd: ":red_circle:",
-            offline: ":black_circle:"
+            online: "<:online:818199420104343582>",
+            idle: "<:idle:818199378748506182>",
+            dnd: "<:dnd:818199339288756225>",
+            offline: "<:offline:818199477600387122>"
         }
     }
 }

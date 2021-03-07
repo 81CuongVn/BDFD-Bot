@@ -45,6 +45,8 @@ client.parse = require("parse-ms")
 client.fs = require("fs")
 client.deep = require("deepmerge")
 
+client.on("messageReactionAdd", (r, u) => require("./src/events/messageReactionAdd")(client, r, u))
+
 client.on("messageDelete", (m) => require("./src/events/messageDelete")(client, m))
 
 client.on("messageUpdate", (oldm, newm) => require("./src/events/messageUpdate")(client, oldm, newm))
