@@ -22,6 +22,8 @@ const client = new Discord.Client({
 
 client.options.restTimeOffset = 0
 
+client.neko = new (require("nekos.best-api"))()
+
 client.snipes = new Discord.Collection()
 client.esnipes = new Discord.Collection()
 client.giveaways = new Discord.Collection()

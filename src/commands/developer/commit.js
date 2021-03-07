@@ -11,7 +11,7 @@ module.exports = {
     category: "developer",
     execute: async (client, message, args) => {
         const m = await message.channel.send(`Pushing...`)
-        
+       
         await exec("git add .")
         await exec(`git commit -m "${args.join(" ")}"`)
         await exec(`git push -u origin main`)
