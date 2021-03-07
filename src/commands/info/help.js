@@ -28,6 +28,8 @@ module.exports = {
             embed.addField(`**__${c[0].toUpperCase()}__**`, c[1].join(", "))
         })
         
+        embed.setDescription(`Want to contribute? check the [Github Repository](https://github.com/Rubenennj/BDFD-Bot/tree/main) for this bot!`)
+        
         message.channel.send(embed)
     }
 }

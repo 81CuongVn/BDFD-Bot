@@ -2,6 +2,7 @@ module.exports = (client) => {
     client.utils = {
         CHANNEL_ID_REGEX: /^(\d{17,19})$/,
         CHANNEL_MENTION_REGEX: /^<#(\d{17,19})>$/,
+        CHANNEL_LINK_REGEX: /https?:\/\/discord(app)?\.com\/channels\/(\d{17,19})\/(\d{17,19})\/(\d{17,19})/,
         USER_ID_REGEX: /^(\d{17,19})$/,
         USER_MENTION_REGEX: /^<@!?(\d{17,19})>$/,
         dates: require("dbd.js-utils"),
