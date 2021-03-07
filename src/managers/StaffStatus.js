@@ -50,7 +50,15 @@ module.exports = class StaffStatus {
         
         data.save()
         
-        if (data.activity.status === "idle") this.addTimeout(id, this.client.db.get(`staff_${id}`))
+        if (data.activity.status === "idle") {
+            this.addTimeout(id, this.client.db.get(`staff_${id}`))
+            
+            const user = this.client.users.cache.get(id)
+            
+            if (user) {
+                user.send(`Hey ${user}, I'm here to notify you that you have been in idle status for ${client.utils.dates.parseMS((Date.now() - data.activity.lastWarnAt) * data.activity.warnCount).array(true).join(" ")}! You can change it in <#818200948991852606>`).catch(err => null)
+            }
+        }
         else {
             data.activity.warned = false
             data.activity.warnCount = 0 
