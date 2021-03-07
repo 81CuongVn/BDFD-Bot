@@ -1,6 +1,7 @@
 const endpoints = ["handlers", "functions", "utils"]
 
 module.exports = (client) => {
+    client.counters.events++
     endpoints.map(end => {
         require(`../${end}/${end.slice(0, end.length - 1)}Manager.js`)(client)
     })

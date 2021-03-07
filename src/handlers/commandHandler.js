@@ -15,6 +15,8 @@ module.exports = async (client, message) => {
         
     if (!command) return undefined
         
+    client.counters.commands++
+    
     try {
         const request = await client.handlers.requestHandler(message, args, command, true)
         

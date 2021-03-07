@@ -21,6 +21,12 @@ const client = new Discord.Client({
 })
 
 client.options.restTimeOffset = 0
+client.counters = {
+    commands: 0,
+    events: 0 
+}
+
+client.os = require("node-os-utils")
 
 client.neko = new (require("nekos.best-api"))()
 
