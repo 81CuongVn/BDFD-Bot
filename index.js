@@ -1,6 +1,7 @@
 const Discord = require("discord.js")
 const config = require("./config.json")
 
+//a cute client
 const client = new Discord.Client({
     disableMentions: "everyone",
     fetchAllMembers: true,
