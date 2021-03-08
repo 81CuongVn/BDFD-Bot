@@ -8,6 +8,10 @@ module.exports = (client) => {
             try {
                 const gw = client.managers.Giveaway(data)
                 
+                const m = await client.channels.cache.get(data.channelID).messages.fetch(data.id).catch(err => null)
+                
+                if (!m) throw new Error("Unknown Message")
+                
                 if (!data.ended) gw.update()
                 else {
                     gw.fetch()

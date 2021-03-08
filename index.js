@@ -28,6 +28,7 @@ client.counters = {
 
 client.os = require("node-os-utils")
 
+client.presences = new Discord.Collection()
 client.neko = new (require("nekos.best-api"))()
 
 client.snipes = new Discord.Collection()

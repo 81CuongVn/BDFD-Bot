@@ -19,8 +19,10 @@ module.exports = (client, message) => {
             createdTimestamp: message.createdTimestamp
         }
         
+        client.presences.set(message.author.id, message.author.presence.status) 
+        
         data.presence = {
-            since: data.since && data.presence.status !== emssage.author.presence.status ? Date.now() : data.since || Date.now(),
+            since: data.presence.since && data.presence.status !== message.author.presence.status ? Date.now() : data.presence.since || Date.now(),
             status: message.author.presence.status,
             devices: message.author.presence.clientStatus,
             activities: message.author.presence.activities.map(a => a.name)

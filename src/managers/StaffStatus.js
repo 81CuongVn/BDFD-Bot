@@ -166,24 +166,27 @@ module.exports = class StaffStatus {
     }
     
     async handle(reaction, user) {
-        if (!this.reactions.includes(reaction.emoji.toString())) return undefined
+        if (!this.reactions.includes(reaction.emoji.toString())) return console.log(user.id, reaction.emoji)
         
         const member = this.client.guilds.cache.get("566363823137882154").members.cache.get(user.id)
         
-        if (!member || !this.isStaff(member)) return undefined 
+        if (!member || !this.isStaff(member)) return console.log(`User ${user.tag || user.id} not cached`)
         
-        await reaction.users.remove(user.id)
+        if (reaction.users) await reaction.users.remove(user.id)
         
         const data = this.client.functions.getStaff(user.id)
         
         const status = reaction.emoji.name 
         
-        if (status === data.activity.status) return undefined 
+        if (status === data.activity.status) return console.log(`${user.tag} attempted to change to same status`)
+        
+        console.log(`New status of ${status} for ${user.tag}`)
         
         data.activity.status = status 
         data.activity.since = Date.now()
         
         data.save()
+        
         
         if (status === "idle") {
             this.addTimeout(user.id, this.client.db.get(`staff_${user.id}`))

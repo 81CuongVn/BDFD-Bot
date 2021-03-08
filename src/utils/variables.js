@@ -17,6 +17,7 @@ module.exports.staff = {
         since: null
     }, 
     activity: {
+        track: false,
         status: "online", 
         since: null, 
         lastWarnAt: null, 
