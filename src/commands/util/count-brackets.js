@@ -3,6 +3,7 @@ module.exports = {
     description: "count brackets in a text",
     args: 1,
     usages: ["<text>"],
+    aliases: ["cb", "count", "brackets"],
     examples: ["[{}][}["],
     fields: ["text"],
     aliases: ["cb"],

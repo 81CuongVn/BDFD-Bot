@@ -54,6 +54,8 @@ client.on("messageUpdate", (oldm, newm) => require("./src/events/messageUpdate")
 
 client.on("message", (m) => require("./src/events/message")(client, m))
 
+client.on("guildMemberAdd", (member) => require("./src/events/guildMemberAdd")(client, member))
+
 client.on("presenceUpdate", (oldp, newp) => require("./src/events/presenceUpdate")(client, oldp, newp))
 
 client.on("ready", () => require("./src/events/ready")(client))

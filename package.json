@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "better-sqlite3": "^7.1.2",
+    "canvas": "^2.7.0",
     "dbd.js-utils": "^0.1.1",
     "deepmerge": "^4.2.2",
     "discord.js": "^12.5.1",

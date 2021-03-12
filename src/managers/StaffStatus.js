@@ -46,7 +46,7 @@ module.exports = class StaffStatus {
         
         data.activity.warnCount++
         data.activity.warned = true
-        data.activity.lastWarnAt = null 
+        data.activity.lastWarnAt = null
         
         data.save()
         
@@ -56,7 +56,7 @@ module.exports = class StaffStatus {
             const user = this.client.users.cache.get(id)
             
             if (user) {
-                user.send(`Hey ${user}, I'm here to notify you that you have been in idle status for ${client.utils.dates.parseMS((Date.now() - data.activity.lastWarnAt) * data.activity.warnCount).array(true).join(" ")}! You can change it in <#818200948991852606>`).catch(err => null)
+                user.send(`Hey ${user}, I'm here to notify you that you have been in idle status for ${this.client.utils.dates.parseMS(86400000 * data.activity.warnCount).array(true).join(" ")}! You can change it in <#818200948991852606>`).catch(err => null)
             }
         }
         else {
@@ -184,6 +184,11 @@ module.exports = class StaffStatus {
         
         data.activity.status = status 
         data.activity.since = Date.now()
+        if (status !== "idle") {
+            data.activity.warnCount = 0 
+            data.activity.warned = false
+            data.activity.lastWarnAt = null
+        }
         
         data.save()
         

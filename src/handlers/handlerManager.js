@@ -1,6 +1,8 @@
 module.exports = (client) => {
     client.handlers = {
         staffPresenceTracking: (oldp, newp) => require("./staffPresenceTracking")(client, oldp, newp),
+        rubenBTS: (oldp, newp) => require("./RubenBTS")(client, oldp, newp),
+        newMember: (member) => require("./newMember")(client, member),
         fetchGiveaways: () => require("./fetchGiveaways")(client),
         staffMessageTracking: (m) => require("./staffMessageTracking")(client, m),
         loadCommands: () => require("./loadCommands")(client),
