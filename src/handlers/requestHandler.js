@@ -1,7 +1,20 @@
 module.exports = async (client, message, args, command, sendMessage = true) => {
     const error = `${client.utils.emojis.no_perms} ${message.author} You do not have enough permissions to use this command!`
     
-    if (command.category === "developer" && !client.owners.includes(message.author.id)) return false
+    if (command.category === "developer" && !client.owners.includes(message.author.id)) {
+        if (sendMessage) {
+            const embed = new client.discord.MessageEmbed()
+            .setColor("RED")
+            .setTitle(`**Missing Permissions**`)
+            .setDescription("Owner only command!")
+            
+            message.channel.send("", {
+                type: 3,
+                embed 
+            }, 64)
+        }
+        return false
+    }
     
     if (command.mod) {
         if (!message.member.roles.cache.has(client.utils.staff_roles.moderator)) {

@@ -4,6 +4,7 @@ module.exports = {
     description: "list of staff members",
     category: "staff",
     staff: true,
+    slash: false, 
     execute: async (client, message, args) => {
         const m = await message.channel.send(`Loading...`)
         

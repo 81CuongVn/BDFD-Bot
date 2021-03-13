@@ -35,7 +35,7 @@ client.snipes = new Discord.Collection()
 client.esnipes = new Discord.Collection()
 client.giveaways = new Discord.Collection()
 client.commands = new Discord.Collection()
-client.owners = ["739591551155437654", "392609934744748032"]
+client.owners = ["739591551155437654"]
 client.prefix = config.prefix 
 
 client.axios = require("axios")
@@ -59,5 +59,9 @@ client.on("guildMemberAdd", (member) => require("./src/events/guildMemberAdd")(c
 client.on("presenceUpdate", (oldp, newp) => require("./src/events/presenceUpdate")(client, oldp, newp))
 
 client.on("ready", () => require("./src/events/ready")(client))
+
+client.ws.on("INTERACTION_CREATE", (data) => {
+    require("./src/events/interactionCreate")(client, new (require("./src/managers/Interaction"))(data, client))
+})
 
 client.login(config.token)

@@ -3,6 +3,7 @@ module.exports = {
     mod: true,
     description: "Starts a giveaway easily",
     category: "giveaway",
+    slash: false ,
     execute: async (client, message, args) => {
         const data = {}
         

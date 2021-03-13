@@ -4,6 +4,7 @@ module.exports = {
     fields: ["member"],
     examples: ["Ruben"],
     usages: ["[member]"],
+    slash: true,
     description: "Display user avatar",
     category: "util",
     execute: async (client, message, args) => {

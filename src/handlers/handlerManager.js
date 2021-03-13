@@ -1,5 +1,7 @@
 module.exports = (client) => {
     client.handlers = {
+        slashCommand: (i) => require("./slashCommand")(client, i),
+        slashCommandHandler: () => require("./slashCommandHandler")(client),
         staffPresenceTracking: (oldp, newp) => require("./staffPresenceTracking")(client, oldp, newp),
         rubenBTS: (oldp, newp) => require("./RubenBTS")(client, oldp, newp),
         newMember: (member) => require("./newMember")(client, member),

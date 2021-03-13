@@ -1,5 +1,15 @@
 module.exports = (client) => {
     client.utils = {
+        slashOptions: {
+            user: "A valid user ID, mention or name",
+            member: "A valid user ID, mention or name",
+            time: "A time duration",
+            title: "A title for the giveaway",
+            winners: "Amount of winners for the giveaway",
+            messageID: "The ID of the message",
+            channel: "The channel ID, mention or name",
+            code: "The code to execute"
+        },
         CHANNEL_ID_REGEX: /^(\d{17,19})$/,
         CHANNEL_MENTION_REGEX: /^<#(\d{17,19})>$/,
         CHANNEL_LINK_REGEX: /https?:\/\/discord(app)?\.com\/channels\/(\d{17,19})\/(\d{17,19})\/(\d{17,19})/,

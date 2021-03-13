@@ -13,6 +13,8 @@ module.exports = (client) => {
     try {
         client.handlers.loadCommands()
         
+        client.handlers.slashCommandHandler()
+        
         client.handlers.fetchGiveaways()
         
         console.log(`Ready on client ${client.user.tag} and loaded ${client.commands.size} commands.`)
