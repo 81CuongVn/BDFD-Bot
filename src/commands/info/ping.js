@@ -5,6 +5,6 @@ module.exports = {
     execute: async (client, message, args) => {
         const m = await message.channel.send(`Pinging...`)
         
-        m.edit(`Pong! ${m.createdTimestamp - message.createdTimestamp}ms`)
+        m.edit(`Pong! ${m.createdTimestamp - message.createdTimestamp || 0}ms`)
     }
 }

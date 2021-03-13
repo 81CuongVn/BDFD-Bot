@@ -57,12 +57,21 @@ module.exports = class Interaction {
             data.content = content 
         }
         
-        const m = await this.client.api.interactions(this.intid, this.inttoken).callback.post({
+        const m = options.msgType === undefined ? await this.client.api.interactions(this.intid, this.inttoken).callback.post({
             data: {
                 type: options.type || 4, 
                 data 
             }
+        }) : await this.client.api.webhooks(this.client.user.id, this.inttoken).messages("@original").patch({
+            data: data 
         })
+        
+        console.log(m)
+        
+        m.edit = (content, options = {}) => {
+            options.msgType = "edit"
+            this.send(content, options) 
+        }
         
         return m 
     } 
