@@ -14,17 +14,21 @@ module.exports = class StaffStatus {
     }
     
     get reactions() {
+        
         const emojis = this.client.utils.emojis
         return [emojis.online, emojis.idle, emojis.dnd, emojis.offline]
     }
     
     start() {
+        
         Object.values(this.members).map(a => a.map(data => {
             if (data.data.activity.status === "idle") this.addTimeout(data.member.id, this.client.db.get(`staff_${data.member.id}`))
         }))
     }
     
     addTimeout(id, data) {
+        
+        
         let time;
         
         if (this.timeouts.has(id)) clearTimeout(this.timeouts.get(id))
@@ -71,6 +75,7 @@ module.exports = class StaffStatus {
     }
     
     async build() {
+        //console.log("build")
         const messages = this.client.functions.getMessages()
         
         let msg = await this.client.channels.cache.get(this.client.utils.channels.statusChannelID).messages.fetch(messages.staffStatusID).catch(err => null)
@@ -89,8 +94,11 @@ module.exports = class StaffStatus {
     }
     
     async update() {
+        
         const m = await this.message.edit(this.embed)
-        .catch(err => null)
+        .catch(err => {
+            return null
+        })
         
         if (!m) {
             this.build()
@@ -103,6 +111,7 @@ module.exports = class StaffStatus {
     }
     
     get embed() {
+      
         const { client } = this 
         
         const embed = new client.discord.MessageEmbed()
@@ -122,7 +131,7 @@ module.exports = class StaffStatus {
             const name = `${this.client.utils.emojis[field]} **${field === "idle" ? "Idle" : field === "dnd" ? "Do Not Disturb" : field === "online" ? "Online" : "Offline"}**`
             
             const m = members.map(d => {
-                return `${d.member} \`[${d.member.user.tag}]\` (${client.utils.dates.parseMS(Date.now() - d.data.activity.since).array(true).join(" ")} ago)`
+                return `\`${d.member.nickname || d.member.user.username}\` (${client.utils.dates.parseMS(Date.now() - d.data.activity.since).array(true).join(" ")} ago)`
             }).join("\n") || "None"
             
             embed.addField(name, m)
@@ -134,6 +143,7 @@ module.exports = class StaffStatus {
     }
     
     get members() {
+        
         const guild = this.client.guilds.cache.get("566363823137882154")
         
         const all = this.client.db.all().filter(d => d.ID.startsWith("staff_")).map(d => {
@@ -166,6 +176,7 @@ module.exports = class StaffStatus {
     }
     
     async handle(reaction, user) {
+        
         if (!this.reactions.includes(reaction.emoji.toString())) return console.log(user.id, reaction.emoji)
         
         const member = this.client.guilds.cache.get("566363823137882154").members.cache.get(user.id)

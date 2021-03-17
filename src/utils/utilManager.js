@@ -1,6 +1,7 @@
 module.exports = (client) => {
     client.utils = {
         slashOptions: {
+            nick: "The nickname for the user",
             user: "A valid user ID, mention or name",
             member: "A valid user ID, mention or name",
             time: "A time duration",

@@ -33,6 +33,9 @@ module.exports = class Interaction {
     }
     
     async send(content, options = {}, flagType) {
+        if (options instanceof this.client.discord.MessageEmbed) options = {
+            embed: options 
+        }
         if (content instanceof this.client.discord.MessageEmbed) {
             options.embed = content
             content = ""
@@ -66,7 +69,7 @@ module.exports = class Interaction {
             data: data 
         })
         
-        console.log(m)
+        
         
         m.edit = (content, options = {}) => {
             options.msgType = "edit"

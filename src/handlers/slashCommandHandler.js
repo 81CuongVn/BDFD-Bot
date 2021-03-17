@@ -1,4 +1,5 @@
 module.exports = async (client) => {
+    //return true 
     for (const command of client.commands.filter(c => c.slash !== false).array()) {
         const options = []
         

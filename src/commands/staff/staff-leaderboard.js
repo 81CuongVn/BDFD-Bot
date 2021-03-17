@@ -5,7 +5,7 @@ module.exports = {
     staff: true,
     description: "leaderboard of staff messages",
     execute: async (client, message, args) => {
-        const m = await message.channel.send(`Loading...`)
+        const m = message.channel.inttoken ? undefined : await message.channel.send("Loading...")
         
         const timers = client.functions.getTimers()
         
@@ -36,6 +36,7 @@ module.exports = {
         
         embed.setDescription(content.join("\n"))
         
-        m.edit("", embed)
+        if (m) m.edit("", embed)
+        else message.channel.send(embed)
     }
 }

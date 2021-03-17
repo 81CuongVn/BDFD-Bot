@@ -4,6 +4,11 @@ module.exports = {
     category: "staff",
     staff: true,
     execute: async (client, message, args) => {
+        if (message.channel.inttoken) {
+            return message.channel.send(`You just found an easter egg :3 ily`, {
+                type: 3
+            }, 64)
+        }
         const embed = new client.discord.MessageEmbed()
         .setColor("BLUE")
         .setDescription(`By enabling this, your presence status will be tracked to change your staff status in <#818200948991852606>, appearing invisible will set you to offline.\nType \`yes\` to enable it or \`no\` to disable it.`)

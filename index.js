@@ -30,7 +30,7 @@ client.os = require("node-os-utils")
 
 client.presences = new Discord.Collection()
 client.neko = new (require("nekos.best-api"))()
-
+client.nekolife = new (require("nekos.life"))()
 client.snipes = new Discord.Collection()
 client.esnipes = new Discord.Collection()
 client.giveaways = new Discord.Collection()
@@ -60,8 +60,6 @@ client.on("presenceUpdate", (oldp, newp) => require("./src/events/presenceUpdate
 
 client.on("ready", () => require("./src/events/ready")(client))
 
-client.ws.on("INTERACTION_CREATE", (data) => {
-    require("./src/events/interactionCreate")(client, new (require("./src/managers/Interaction"))(data, client))
-})
+client.ws.on("INTERACTION_CREATE", (data) => require("./src/events/interactionCreate")(client, new (require("./src/managers/Interaction"))(data, client)))
 
 client.login(config.token)

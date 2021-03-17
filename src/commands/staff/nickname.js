@@ -8,12 +8,23 @@ module.exports = {
     usages: ["<user> <nick>"],
     category: "staff",
     staff: true,
-    execute: async (client, message, args) => {
+    execute: async (client, message, args, command) => {
+        if (message.channel.inttoken) {
+            return message.channel.send(`Unusable within slash commands!`, {
+                type: 3
+            }, 64)
+        }
         const member = await client.functions.findMember(message, args[0])
         
         if (!member) return message.channel.send(`:x: Could not find any member with given query.`)
+       
         
-        const m = await member.setNickname(args[1] === "reset" ? "" : args.slice(1).join(" ")).catch(err => null)
+        if (member.id !== message.author.id && member.roles.highest.position >= message.member.roles.highest.position) return message.channel.send("No")
+        
+        const m = await member.setNickname(args[1] === "reset" ? "" : args.slice(1).join(" ")).catch(err => {
+            message.channel.send(JSON.stringify(err))
+            return null 
+        })
         
         if (!m) return message.channel.send(`:x: Failed to change ${member.user.username}'s nickname.`)
         

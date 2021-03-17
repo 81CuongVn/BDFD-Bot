@@ -1,5 +1,6 @@
 module.exports = (client) => {
     client.handlers = {
+        reviewChecker: (m) => require("./reviewChecker")(client, m),
         slashCommand: (i) => require("./slashCommand")(client, i),
         slashCommandHandler: () => require("./slashCommandHandler")(client),
         staffPresenceTracking: (oldp, newp) => require("./staffPresenceTracking")(client, oldp, newp),

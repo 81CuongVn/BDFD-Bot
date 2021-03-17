@@ -9,16 +9,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@lavacord/discord.js": "0.0.7",
     "better-sqlite3": "^7.1.2",
     "canvas": "^2.7.0",
     "dbd.js-utils": "^0.1.1",
     "deepmerge": "^4.2.2",
     "discord.js": "^12.5.1",
+    "ffmpeg": "0.0.4",
     "fs": "0.0.1-security",
     "ms": "^2.1.3",
     "nekos.best-api": "^0.1.1",
+    "nekos.life": "^2.0.7",
+    "node-opus": "^0.3.3",
     "node-os-utils": "^1.3.5",
     "parse-ms": "^2.1.0",
-    "quick.db": "^7.1.3"
+    "quick.db": "^7.1.3",
+    "ytdl-core": "^4.5.0"
   }
 }

@@ -1,6 +1,6 @@
 module.exports = {
     name: "drop",
-    description: "First person to rract eins the item",
+    description: "First person to react wins the item",
     args: 2,
     usages: ["<channel> <title>"],
     examples: ["#general depression"],
