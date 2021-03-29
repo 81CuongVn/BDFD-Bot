@@ -11,7 +11,7 @@ module.exports = async (client, message) => {
     
     const cmd = args.shift().toLowerCase()
     
-    const command = client.commands.get(cmd) || client.commands.find(c => c.name.replace(/-/g, "") === cmd || (c.aliases && c.aliases.includes(cmd)))
+    const command = client.commands.get(cmd) || client.commands.find(c => (c.name && c.name.replace(/-/g, "") === cmd) || (c.aliases && c.aliases.includes(cmd)))
         
     if (!command) return undefined
         

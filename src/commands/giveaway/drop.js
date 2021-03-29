@@ -35,25 +35,34 @@ module.exports = {
         
         const start = Date.now()
         
+        let taken; 
+        
         const filter = (r) => r.emoji.toString() === "<:bdfd_coin:766607515445231637>" && client.user.id !== message.author.id
         
-        const collected = await m.awaitReactions(filter, {
+        const collector = m.createReactionCollector(filter, {
             max: 1,
             time: 60000
-        }).catch(err => null)
+        })
         
-        if (!collected || !collected.first() || !collected.first().users) return m.delete().catch(err => null)
+        let user;
         
-        else {
-            const user = collected.first().users.cache.array()[1]
-            
-            const taken = Date.now() -start
+        collector.on("collect", (r, u) => {
+            user = u 
+            taken = Date.now() - start 
+            collector.stop()
+        })
+        
+        collector.on("end", () => {
+            if (!user instanceof client.discord.User) {
+                m.delete().catch(err => null)
+            } else {
             
             embed.setDescription(`${user} won the drop`)
             embed.setFooter(`They took ${taken}ms to react`)
             m.edit(embed)
             m.reactions.cache.first().remove().catch(err => null)
             m.channel.send(`Congratulations ${user}! You won **${title}**`)
-        }
+            }
+        })
     }
 }

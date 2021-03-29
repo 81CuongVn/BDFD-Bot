@@ -8,12 +8,10 @@ module.exports = (client) => {
     
     require("../managers/classManager")(client)
     
-    client.managers.StaffStatus()
-    
     try {
-        client.handlers.loadCommands()
+        blacklist(client)
         
-        client.handlers.slashCommandHandler()
+        client.handlers.loadCommands()
         
         client.handlers.fetchGiveaways()
         
@@ -23,4 +21,10 @@ module.exports = (client) => {
         
         client.handlers.error(err)
     }
+}
+
+function blacklist(client) {
+    client.db.all().filter(a => a.ID.includes("data_")).map(a => {
+        if (JSON.parse(a.data).blacklisted) client.blacklist.set(a.ID.split("_")[1], true)
+    })
 }
