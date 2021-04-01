@@ -35,7 +35,7 @@ module.exports = {
         
         data.money = chance < Number(guild.slut.fine_ratio) ? (BigInt(data.money) - value).toString() : (BigInt(data.money) + value).toString()
         
-        const reply = (guild.slut[chance < Number(guild.slut.fine_ratio) ? "fine_replies" : "replies"][Math.floor(Math.random() * guild.slut.replies.length)] || (chance < Number(guild.slut.fine_ratio) ? "{user} was caught by the police while trying to whip it out and got ent to jail, losing {emoji}{money}." : "{user} whiped it out and got {emoji}{value}.")).replace(/{user}/g, message.author.toString()).replace(/{(money|value)}/g, value.toLocaleString()).replace(/{emoji}/g, guild.economy_emoji)
+        const reply = (guild.slut[chance < Number(guild.slut.fine_ratio) ? "fine_replies" : "replies"][Math.floor(Math.random() * guild.slut.replies.length)] || (chance < Number(guild.slut.fine_ratio) ? "{user} was caught by the police while trying to whip it out and got sent to jail, losing {emoji}{money}." : "{user} whiped it out and got {emoji}{value}.")).replace(/{user}/g, message.author.toString()).replace(/{(money|value)}/g, value.toLocaleString()).replace(/{emoji}/g, guild.economy_emoji)
         
         embed.setDescription(reply)
         

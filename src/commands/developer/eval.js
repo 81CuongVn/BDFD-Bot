@@ -5,6 +5,7 @@ module.exports = {
     fields: ["code"],
     usages: ["<code>"], 
     slash: true, 
+    cooldown: 2500,
     args: 1,
     examples: ["function test() { return 1; }"],
     execute: async(client, message, args) => {

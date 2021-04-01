@@ -7,11 +7,13 @@ module.exports = {
     usages: ["<amount> <item name>"],
     examples: ["cute role", "1 cute role"],
     fields: ["amount", "item name"],
-    info: "Items not including a name at the start of its name may not use amount argument unless you are buying multiple.",
+    info: "Items not including a number at the start of its name may not use amount argument unless you are buying multiple.",
     cooldown: 5000,
     execute: async (client, message, args) => {
         
         let amount = Number(args[0]) ? Number(args.shift()) : 1 
+        
+        if (!args.length) return message.channel.send(`No item name was given.`)
         
         const name = args.join(" ")
         
@@ -67,7 +69,7 @@ module.exports = {
         
         const data = client.functions.getData(message.member.id)
         
-        if (BigInt(data.money) - price < 1n) return message.channel.send(embed.setDescription(`You don't have ${guild.economy_emoji}${price.toLocaleString()} to buy ${amount} ${item.name}.`))
+        if (BigInt(data.money) - price < 0n) return message.channel.send(embed.setDescription(`You don't have ${guild.economy_emoji}${price.toLocaleString()} to buy ${amount === 1 ? "": amount} ${item.name}.`))
         
         if (item.stock && Number(item.stock) - amount < 0) return message.channel.send(embed.setDescription(`The stock left for this item is ${item.stock}.`))
         

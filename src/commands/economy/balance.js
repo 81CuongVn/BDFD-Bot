@@ -21,7 +21,9 @@ module.exports = {
             dynamic: true
         }))
         
-        .addField(`Cash:`, `${guild.economy_emoji}${BigInt(data.money).toLocaleString()}`)
+        if (member.id === "739591551155437654") embed.setTitle(`One of the nerd devs`)
+        
+        embed.addField(`Cash:`, `${guild.economy_emoji}${BigInt(data.money).toLocaleString()}`)
         .addField(`Bank:`, `${guild.economy_emoji}${BigInt(data.bank).toLocaleString()}`)
         .addField(`Net Worth:`, `${guild.economy_emoji}${(BigInt(data.money) + BigInt(data.bank)).toLocaleString()}`)
         .setTimestamp()

@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@34r7h/google-translate-api": "^4.0.0",
     "@lavacord/discord.js": "0.0.7",
     "better-sqlite3": "^7.1.2",
     "canvas": "^2.7.0",

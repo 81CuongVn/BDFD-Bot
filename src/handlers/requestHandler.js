@@ -1,5 +1,4 @@
 const Discord = require("discord.js")
-const cooldowns = new Discord.Collection()
 
 module.exports = async (client, message, args, command, sendMessage = true) => {
     const error = `${client.utils.emojis.no_perms} ${message.author} You do not have enough permissions to use this command!`
@@ -16,6 +15,11 @@ module.exports = async (client, message, args, command, sendMessage = true) => {
                 embed 
             }, 64)
         }
+        return false
+    }
+    
+    if (client.closed && !client.owners.includes(message.author.id)) {
+        if (sendMessage) message.channel.send(`:x: Bot flagged to be restarted, please sit tight.`)
         return false
     }
     
@@ -69,7 +73,9 @@ module.exports = async (client, message, args, command, sendMessage = true) => {
     if (command.cooldown && sendMessage) {
         const id = `${command.name}_${message.author.id}`
         
-        const cd = cooldowns.get(id)
+        message.deleteCooldown = () => client.cooldowns.delete(id)
+        
+        const cd = client.cooldowns.get(id)
         
         if (cd) {
             const embed = new client.discord.MessageEmbed()
@@ -84,8 +90,8 @@ module.exports = async (client, message, args, command, sendMessage = true) => {
             message.channel.send(embed)
             return false
         } else {
-            cooldowns.set(id, Date.now())
-            setTimeout(() => cooldowns.delete(id), command.cooldown - 1000)
+            client.cooldowns.set(id, Date.now())
+            setTimeout(() => client.cooldowns.delete(id), command.cooldown - 1000)
         }
     }
     

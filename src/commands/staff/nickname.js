@@ -22,7 +22,6 @@ module.exports = {
         if (member.id !== message.author.id && member.roles.highest.position >= message.member.roles.highest.position) return message.channel.send("No")
         
         const m = await member.setNickname(args[1] === "reset" ? "" : args.slice(1).join(" ")).catch(err => {
-            message.channel.send(JSON.stringify(err))
             return null 
         })
         

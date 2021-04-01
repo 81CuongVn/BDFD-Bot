@@ -9,9 +9,11 @@ module.exports = {
     cooldown: 10000,
     execute: async (client, message, args) => {
         
-        client.api.channels(message.channel.id).typing.post()
+        await client.api.channels(message.channel.id).typing.post()
         
-        const r = (args[0] || "total").replace(/-/g, "")
+        const r = ((!Number(args[0]) ? args[0] : args[1]) || "total").replace(/-/g, "")
+        
+        if (!Number(r) && !["total", "cash", "bank"].includes(r)) return message.channel.send(`Invalid leaderboard type given.`)
         
         const rank = client.functions.getLeaderboardRank(message.author.id, r.replace(/-/g, "") === "cash" ? "money" : r.replace(/-/g, "") === "bank" ? "bank": undefined)
         
@@ -27,7 +29,7 @@ module.exports = {
         .setAuthor(`Money Leaderboard (${r})`, message.guild.iconURL({dynamic:true}))
         .setTimestamp()
         .setDescription(rank.array.slice(page*10-10, page*10).map((x, top) => {
-            return `**${page*10-10+top+1}.** [${x.data.username}](https://nothing.com) - ${guild.economy_emoji}${r === "total" ? (BigInt(x.data.money) + BigInt(x.data.bank)).toLocaleString() : r === "bank" ? BigInt(x.data.bank).toLocaleString() : BigInt(x.data.money).toLocaleString()}`
+            return `**${page*10-10+top+1}.** [${x.data.username}](https://botdesignerdiscord.com) - ${guild.economy_emoji}${r === "total" ? (BigInt(x.data.money) + BigInt(x.data.bank)).toLocaleString() : r === "bank" ? BigInt(x.data.bank).toLocaleString() : BigInt(x.data.money).toLocaleString()}`
         }).join("\n"))
         .setFooter(`${rank.position ? `Position on the leaderboard: ${rank.position}# | ` : ""}Page ${page} / ${pages}`)
         

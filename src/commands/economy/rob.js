@@ -12,17 +12,19 @@ module.exports = {
         
         const member = await client.functions.findMember(message, args.join(" "))
         
-        if (!member) return message.channel.send(`Could not find any member with given query.`)
+        if (!member) return message.channel.send(`Could not find any member with given query.`), message.deleteCooldown()
         
-        if (member.user.id === message.member.id) return message.channel.send(`I cannot allow you do that.`)
+        if (member.user.id === message.member.id) return message.channel.send(`I cannot allow you do that.`), message.deleteCooldown()
         
-        if (member.user.bot) return message.channel.send(`Rule 9, don't mess with bots.`)
+        if (member.user.bot) return message.channel.send(`Rule 9, don't mess with bots.`), message.deleteCooldown()
         
         const data = client.functions.getData(message.author.id)
         
         const target = client.functions.getData(member.id)
         
-        if (target.gang_id === data.gang_id) return message.channel.send(`You cannot rob members of the same gang.`)
+        if (client.bjs.has(member.id)) return message.channel.send(`Unable to rob this user.`), message.deleteCooldown()
+        
+        if (target.gang && data.gang && target.gang_id === data.gang_id) return message.channel.send(`You cannot rob members of the same gang.`), message.deleteCooldown()
         
         if (BigInt(target.money) < 1) {
             const embed = new client.discord.MessageEmbed()

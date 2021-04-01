@@ -8,6 +8,8 @@ module.exports = {
     category: "fun",
     description:"Turn your text into cat",
     execute: async (client, message, args) => {
-        message.channel.send(args.join(" ").replace(/(l|r)/gi, "w").replace(/o/gi, "u").split(/ +/g).map(word => Math.floor(Math.random() * 100) > 70 ? word + " nya" : word).join(" ") + " nya")
+        message.channel.send(args.join(" ").replace(/(l|r)/gi, "w").replace(/o/gi, "u").split(/ +/g).map(word => Math.floor(Math.random() * 100) > 70 ? word + " nya" : word).join(" ") + " nya", {
+            disableMentions: Object.values(client.utils.staff_roles).some(id => message.member.roles.cache.has(id)) ? "none" : "all"
+        })
     }
 }

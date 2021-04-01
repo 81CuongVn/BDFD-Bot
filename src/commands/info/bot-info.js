@@ -4,6 +4,8 @@ module.exports = {
     category: "info",
     description: "display bot info",
     execute: async (client, message, args) => {
+        await client.api.channels(message.channel.id).typing.post()
+        
         const cpu = await client.os.cpu.usage(250)
         
         const embed = new client.discord.MessageEmbed()

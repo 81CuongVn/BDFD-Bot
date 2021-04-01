@@ -82,6 +82,16 @@ module.exports = class Giveaway {
     async fetchAllReactions() {
         const collection = new this.client.discord.Collection()
         
+        if (!this.message) {
+            await this.fetch()
+        }
+        
+        const rr = this.message.reactions.cache.get("766607515445231637")
+        
+        if (rr.users.cache.size >= rr.count) {
+            return rr.users.cache.filter(u => !u.bot && this.message.guild.members.cache.has(u.id))
+        }
+        
         const users = await this.fetchReactions()
         
         users.map(u => {
@@ -141,7 +151,7 @@ module.exports = class Giveaway {
             if (!winners.length) {
                 this.message.channel.send(`There are no new winners for **${this.data.title}**.\n${this.message.url}`)
             } else {
-                this.message.channel.send(`The new winners for **${this.data.title}** ${winners.length === 1 ? "is" : "are"} ${winners.map(u => u.toString()).join(", ")}!\n${this.message.url}`)
+                this.message.channel.send(`The new winner${winners.length === 1 ? "" : "s"} for **${this.data.title}** ${winners.length === 1 ? "is" : "are"} ${winners.map(u => u.toString()).join(", ")}!\n${this.message.url}`)
             }
         } else {
             this.data.ended = true
@@ -151,7 +161,7 @@ module.exports = class Giveaway {
             if (!winners.length) {
                 this.message.channel.send(`There are no winners for **${this.data.title}**.\n${this.message.url}`)
             } else {
-                this.message.channel.send(`The winners for **${this.data.title}** ${winners.length === 1 ? "is" : "are"} ${winners.map(u => u.toString()).join(", ")}!\n${this.message.url}`)
+                this.message.channel.send(`The winner${winners.length === 1 ? "" : "s"} for **${this.data.title}** ${winners.length === 1 ? "is" : "are"} ${winners.map(u => u.toString()).join(", ")}!\n${this.message.url}`)
             }
         }
     }

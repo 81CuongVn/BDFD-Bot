@@ -21,6 +21,8 @@ module.exports ={
         
         if (!amount || amount < 1n) return message.channel.send(embed.setDescription(`Invalid \`amount\` given.`))
         
+        if (amount > BigInt(data.money)) return message.channel.send(embed.setDescription(`You cannot bet more than what you have.`))
+        
         if (!data.inventory.Chicken) return message.channel.send(embed.setDescription(`You do not have any chicken to fight with.`))
         
         const guild = client.functions.getGuild(message.guild.id)
@@ -35,6 +37,8 @@ module.exports ={
             embed.setColor("GREEN")
             data.money = (BigInt(data.money) + amount).toString()
             data.cf = chance + Number(guild.cock_fight.ratio) 
+            if (data.cf > Number(guild.cock_fight.max)) data.cf = Number(guild.cock_fight.max)
+            
             embed.setDescription(`Your chicken won the fight! +${guild.economy_emoji}${amount.toLocaleString()}`)
             
             client.db.set(`data_${message.member.id}`, data)

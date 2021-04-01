@@ -1,5 +1,6 @@
 module.exports = {
     name: "request",
+    aliases: ["join", "join-gang", "joingang", "apply"],
     args: 1,
     category: "gangs",
     fields: ["gang"],

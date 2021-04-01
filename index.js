@@ -35,10 +35,15 @@ client.counters = {
     commands: 0,
     events: 0 
 }
+client.closed = false 
+client.cooldowns = new Discord.Collection()
 
 client.rls = new Discord.Collection()
+client.gangs_net = new Discord.Collection()
 
 client.os = require("node-os-utils")
+
+client.translate = require("@34r7h/google-translate-api")
 
 client.random = require("random-between")
 client.presences = new Discord.Collection()

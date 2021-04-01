@@ -3,6 +3,7 @@ module.exports = {
     description: "pays someone a specific amount of money.",
     category: "economy",
     args: 2,
+    aliases: ["give", "give-money", "givemoney"],
     examples: ["@Ruben all", "123456789012345678 6e10"],
     usages: ["<member> <amount | all>"],
     fields: ["member", "amount"],
