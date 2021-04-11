@@ -2,6 +2,7 @@ module.exports ={
     name: "cock-fight",
     aliases: ["cf"],
     description: "put your chicken into battle",
+    cooldown: 10000,
     args: 1,
     category: "economy",
     fields: ["bet"],
@@ -19,11 +20,11 @@ module.exports ={
         
         const amount = args[0].toLowerCase() === "all" ? BigInt(data.money) : client.functions.convert(args[0])
         
-        if (!amount || amount < 1n) return message.channel.send(embed.setDescription(`Invalid \`amount\` given.`))
+        if (!amount || amount < 1n) return message.channel.send(embed.setDescription(`Invalid \`amount\` given.`)), message.deleteCooldown()
         
-        if (amount > BigInt(data.money)) return message.channel.send(embed.setDescription(`You cannot bet more than what you have.`))
+        if (amount > BigInt(data.money)) return message.channel.send(embed.setDescription(`You cannot bet more than what you have.`)), message.deleteCooldown()
         
-        if (!data.inventory.Chicken) return message.channel.send(embed.setDescription(`You do not have any chicken to fight with.`))
+        if (!data.inventory.Chicken) return message.channel.send(embed.setDescription(`You do not have any chicken to fight with.`)), message.deleteCooldown()
         
         const guild = client.functions.getGuild(message.guild.id)
         

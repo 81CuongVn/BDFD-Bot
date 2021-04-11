@@ -23,9 +23,11 @@ module.exports = {
         
         if (member.id === "739591551155437654") embed.setTitle(`One of the nerd devs`)
         
-        embed.addField(`Cash:`, `${guild.economy_emoji}${BigInt(data.money).toLocaleString()}`)
-        .addField(`Bank:`, `${guild.economy_emoji}${BigInt(data.bank).toLocaleString()}`)
-        .addField(`Net Worth:`, `${guild.economy_emoji}${(BigInt(data.money) + BigInt(data.bank)).toLocaleString()}`)
+        if (member.id === "325663449680052227") embed.setTitle(`<a:hollyDance:827660857085394954> Satan Is Real <a:hollyDance:827660857085394954>`)
+        
+        embed.addField(`Cash:`, `${guild.economy_emoji}${BigInt(data.money).shorten()}`)
+        .addField(`Bank:`, `${guild.economy_emoji}${BigInt(data.bank).shorten()}`)
+        .addField(`Net Worth:`, `${guild.economy_emoji}${(BigInt(data.money) + BigInt(data.bank)).shorten()}`)
         .setTimestamp()
         .setDescription(`View your global rank using \`+leaderboard\``)
         

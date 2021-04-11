@@ -25,7 +25,7 @@ module.exports = {
         
         const cf = guild.cock_fight 
         
-        embed.addField(`Cock Fight`, `Start: \`${cf.start}%\`\nMax: \`${cf.max}%\`\nIncrement: \`${cf.ratio}%\``)
+        embed.addField(`\`Cock Fight\` Settings`, `Start: \`${cf.start}%\`\nMax: \`${cf.max}%\`\nIncrement: \`${cf.ratio}%\``)
         
         message.channel.send(embed)
     }

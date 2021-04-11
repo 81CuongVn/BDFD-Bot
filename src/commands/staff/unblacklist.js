@@ -18,6 +18,8 @@ module.exports = {
         
         if (!data.blacklisted) return message.channel.send(`This user is not blacklisted`)
         
+        data.blacklisted_at = null 
+        data.blacklist_duration = null 
         data.blacklisted = false
         
         client.db.set(`data_${member.id}`, data)

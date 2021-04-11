@@ -2,6 +2,7 @@ module.exports = {
     name: "slut",
     description: "Idk whay to say",
     category: "economy",
+    channels: ["609163301481480203"],
     cooldown: 600000,
     execute: async (client, message, args) => {
         const data = client.functions.getData(message.author.id)

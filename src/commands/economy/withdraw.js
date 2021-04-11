@@ -21,16 +21,18 @@ module.exports = {
         .setTimestamp()
         .setColor("RED")
         
-        if (!amount || amount < 1) { 
+        if ((!amount && amount !== 0n) || amount < 0n) { 
             embed.setDescription(`Invalid \`amount\` given.`)
             
-            return message.channel.send(embed)
+            return message.channel.send(embed), message.deleteCooldown()
         }
         
         if (amount > BigInt(data.bank)) {
             embed.setDescription(`You can't withdraw more than what you have.`)
-            return message.channel.send(embed)
+            return message.channel.send(embed), message.deleteCooldown()
         }
+        
+        if (!amount) return message.channel.send(embed.setDescription(`Cannot withdraw ${guild.economy_emoji}0.`)), message.deleteCooldown()
         
         data.money = (BigInt(data.money) + amount).toString()
         data.username = message.author.tag 
@@ -39,7 +41,7 @@ module.exports = {
         client.db.set(`data_${message.author.id}`, data)
         
         embed.setColor("GREEN")
-        embed.setDescription(`Successfully withdrew ${guild.economy_emoji}${amount.toLocaleString()} from your bank.`)
+        embed.setDescription(`Successfully withdrew ${guild.economy_emoji}${amount.shorten()} from your bank.`)
         
         message.channel.send(embed)
     }

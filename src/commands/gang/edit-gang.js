@@ -5,7 +5,7 @@ module.exports = {
     category: "gangs",
     cooldown: 15000,
     examples: ["name Creators", "description nice one gang"],
-    usages: ["<name | thumbnail | description> <value>"],
+    usages: ["<name | color | thumbnail | description> <value>"],
     fields: ["name | thumbnail | description" , "value"],
     execute: async (client, message, args) => {
         const gangs = client.db.get("gangs")
@@ -27,12 +27,19 @@ module.exports = {
         
         const type = args.shift().toLowerCase()
         
-        if (!["thumbnail", "description", "name"].includes(type)) return message.channel.send(embed.setDescription(`Invalid \`type\` given, choose between \`description, thumbnail and name\`.`))
+        if (!["thumbnail", "color", "description", "name"].includes(type)) return message.channel.send(embed.setDescription(`Invalid \`type\` given, choose between \`description, color, thumbnail and name\`.`))
    
         const n = args.join(" ")
         
         if (n.length > 256) return message.channel.send(embed.setDescription(`The new ${type} cannot be larger than 256 characters.`))
         
+        if (type === "color") {
+            try {
+                new client.discord.MessageEmbed().setColor(n)
+            } catch (e) {
+                return message.channel.send(embed.setDescription(`The color must be a valid hex or int.`))
+            }
+        }
         if (type === "thumbnail" && !n.startsWith("http")) return message.channel.send(embed.setDescription(`The thumbnail url must start with http.`))
         
         if (type === "name" && gangs.find(a => a.name.toLowerCase() === n.toLowerCase())) return message.channel.send(embed.setDescription(`A gang with that name already exists.`))

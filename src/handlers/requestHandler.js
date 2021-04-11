@@ -19,7 +19,7 @@ module.exports = async (client, message, args, command, sendMessage = true) => {
     }
     
     if (client.closed && !client.owners.includes(message.author.id)) {
-        if (sendMessage) message.channel.send(`:x: Bot flagged to be restarted, please sit tight.`)
+        if (sendMessage) message.channel.send(`:x: Bot flagged to be restarted, please wait.`)
         return false
     }
     
@@ -55,7 +55,21 @@ module.exports = async (client, message, args, command, sendMessage = true) => {
     }
     
     if (command.category=== "economy" && client.blacklist.has(message.member.id)) {
-        if (sendMessage) message.channel.send(`:x: You are blacklisted from using economy commands.`)
+        if (sendMessage) {
+            const d = client.blacklist.get(message.member.id)
+            
+            if (d === true) message.channel.send(`:x: You are blacklisted from using economy commands.`)
+            else {
+                if (d.duration - (Date.now() - d.since) < 1000) {
+                    const data = client.functions.getData(message.member.id)
+                    data.blacklisted = false 
+                    data.blacklisted_at = null 
+                    data.blacklisted_duration = null 
+                    client.blacklist.delete(message.member.id)
+                    client.db.set(`data_${message.member.id}`, data)
+                } else message.channel.send(`:x: You are blacklisted from using economy commands.\nBan duration: \`${client.utils.dates.parseMS(d.duration - (Date.now() - d.since)).array(true).join(" ")}\` left.`)
+            }
+        }
         return false 
     }
     

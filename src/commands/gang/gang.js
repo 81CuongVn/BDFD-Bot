@@ -26,7 +26,7 @@ module.exports = {
         if (page > pages)page = pages 
         
         const embed = new client.discord.MessageEmbed()
-        .setColor("YELLOW")
+        .setColor(data.color || "YELLOW")
         .setAuthor(message.author.tag, message.author.displayAvatarURL({
             dynamic: true
         }))
@@ -34,7 +34,7 @@ module.exports = {
         .setDescription(data.description)
         .addField(`Members [${members.length} / ${data.max_members}]`, members.slice(page*10-10,page*10).join("\n"))
         .addField(`Pending Requests`, data.requests.length)
-        .addField(`Total Net Worth`, `<:bdfd_coin:766607515445231637>${networth.toLocaleString()}`)
+        .addField(`Total Net Worth`, `<:bdfd_coin:766607515445231637>${networth.shorten()}`)
         .setFooter(`Page ${page} / ${pages} | Founded at `)
         .setTimestamp(data.founded_at)
         

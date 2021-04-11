@@ -2,7 +2,7 @@ module.exports ={
     name: "coin-flip",
     aliases: ["flipcoin", "fp", "flip-coin"],
     description: "bet to heads or tails and flip the coin!",
-    cooldown: 4000,
+    cooldown: 10000,
     category: "economy",
     args: 2,
     usages: ["<amount | all> <heads | tails>"],
@@ -24,15 +24,15 @@ module.exports ={
         
         const guild = client.functions.getGuild(message.guild.id)
         
-        if (!amount || amount < 100n) return message.channel.send(embed.setDescription(`You must bet a amount over ${guild.economy_emoji}100.`))
+        if (!amount || amount < 100n) return message.channel.send(embed.setDescription(`You must bet a amount over ${guild.economy_emoji}100.`)), message.deleteCooldown()
         
-        if (amount > BigInt(data.money)) return message.channel.send(embed.setDescription(`You cannot bet more than what you have.`))
+        if (amount > BigInt(data.money)) return message.channel.send(embed.setDescription(`You cannot bet more than what you have.`)), message.deleteCooldown()
         
         const type = args.shift().toLowerCase()
         
-        if (!["tails", "heads"].includes(type)) return message.channel.send(embed.setDescription(`You can only bet to either \`heads\` or \`tails\`.`))
+        if (!["tails", "heads"].includes(type)) return message.channel.send(embed.setDescription(`You can only bet to either \`heads\` or \`tails\`.`)), message.deleteCooldown()
         
-        const rn = ["heads", "tails"][Math.floor(Math.random() * 2)]
+        const rn = ["heads", "tails", "heads", "tails", "heads", "tails"][Math.floor(Math.random() * 6)]
         
         data.username = message.author.tag 
         

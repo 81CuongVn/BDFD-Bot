@@ -1,4 +1,6 @@
 module.exports = (client, userID, type = "total") => {
+    let top;
+    
     const all = client
     .db
     .all()
@@ -19,7 +21,7 @@ module.exports = (client, userID, type = "total") => {
     })
     
     return {
-        position: all.findIndex(d => d.user_id === userID) + 1 || undefined,
+        position: top, 
         array: all 
     }
 }

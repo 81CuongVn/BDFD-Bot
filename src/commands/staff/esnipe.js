@@ -13,7 +13,7 @@ module.exports = {
         
         const msg = client.esnipes.get(channel.id)
         
-        if (!msg) return message.channel.send(`There is nothing to e-snipe in ${channel}`)
+        if (!msg || !msg.member) return message.channel.send(`There is nothing to e-snipe in ${channel}`)
         
         const data = {}
         

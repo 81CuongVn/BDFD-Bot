@@ -14,6 +14,7 @@ const client = new Discord.Client({
     ],
     ws: {
         intents: [
+            "GUILD_PRESENCES",
             "GUILDS", 
             "GUILD_MEMBERS", 
             "GUILD_MESSAGE_REACTIONS",
@@ -35,9 +36,11 @@ client.counters = {
     commands: 0,
     events: 0 
 }
+
 client.closed = false 
 client.cooldowns = new Discord.Collection()
 
+client.bets = new Discord.Collection()
 client.rls = new Discord.Collection()
 client.gangs_net = new Discord.Collection()
 
@@ -76,3 +79,9 @@ client.on("guildMemberAdd", (member) => require("./src/events/guildMemberAdd")(c
 client.on("ready", () => require("./src/events/ready")(client))
 
 client.login(config.token)
+
+BigInt.prototype.shorten = function(show = true) {
+    if (!show) return this.toLocaleString() 
+    if (this.toString().length > 90 && this.toString().length < 1200) return this.toLocaleString().split(",").slice(0, 30).join(",") + `... (${this.toLocaleString().split(",").slice(30).join("").length + 1} integers more)`
+    return 1200 <= this.toString().length ? "**∞**" : this.toLocaleString() 
+}

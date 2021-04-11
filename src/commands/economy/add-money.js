@@ -22,11 +22,9 @@ module.exports = {
         
         const member = await client.functions.findMember(message, args.join(" "))
         
-        if (member && member.id !== client.owners[0] && member.roles.cache.has("659789148806447134")) return message.channel.send(`No cheating.`)
-        
         if (!["cash", "bank"].includes(type.toLowerCase())) return message.channel.send(embed.setDescription(`That is not a valid money type.`))
         
-        if (!amount || amount < 1n || amount.toString().length  > 300) return message.channel.send(embed.setDescription(`Invalid amount given.`))
+        if (!amount || amount < 1n || amount.toString().length  > 3000) return message.channel.send(embed.setDescription(`Invalid amount given.`))
         
         if (!member) return message.channel.send(embed.setDescription(`Could not find any member with given query.`))
         
@@ -44,7 +42,7 @@ module.exports = {
         client.db.set(`data_${member.id}`, data)
         
         embed.setColor("GREEN")
-        .setDescription(`Successfully added ${guild.economy_emoji}${amount.toLocaleString()} to ${member}.`)
+        .setDescription(`Successfully added ${guild.economy_emoji}${amount.shorten()} to ${member}.`)
         
         message.channel.send(embed)
     }

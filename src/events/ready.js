@@ -25,6 +25,12 @@ module.exports = (client) => {
 
 function blacklist(client) {
     client.db.all().filter(a => a.ID.includes("data_")).map(a => {
-        if (JSON.parse(a.data).blacklisted) client.blacklist.set(a.ID.split("_")[1], true)
+        const d = JSON.parse(a.data) 
+        if (d.blacklisted) {
+            client.blacklist.set(a.ID.split("_")[1], d.blacklist_duration ? {
+                duration: d.blacklist_duration,
+                since: d.blacklisted_at 
+            } : true)
+        }
     })
 }

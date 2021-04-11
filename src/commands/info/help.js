@@ -30,6 +30,8 @@ module.exports = {
         
         embed.setDescription(`Want to contribute? check the [Github Repository](https://github.com/Rubenennj/BDFD-Bot/tree/main) for this bot!`)
         
+        embed.addField(`News`, `- Added support for infinity value (\`+join Satan's Offspring\`).\n- You can now edit gang embed color using \`+edit-gang\`.`)
+        
         message.channel.send(embed)
     }
 }

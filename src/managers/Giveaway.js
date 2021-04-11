@@ -57,8 +57,8 @@ module.exports = class Giveaway {
         .setColor("6B81D2")
         .setAuthor("🎉 BDFD GIVEAWAY 🎉", undefined, "https://play.google.com/store/apps/details?id=com.jakubtomana.discordbotdesinger")
         .setTitle(data.title)
-        .setFooter(`${data.winners} Winner${data.winners === 1 ?"" : "s"} | Started at `)
-        .setTimestamp(data.startedAt)
+        .setFooter(`${data.winners} Winner${data.winners === 1 ?"" : "s"} | Ends at `)
+        .setTimestamp(data.endsAt)
         .setURL(this.message ? this.message.url : "https://discord.gg/bot")
         .setThumbnail(client.guilds.cache.get(this.data.guildID).iconURL({
             dynamic: true,
@@ -123,7 +123,7 @@ module.exports = class Giveaway {
         
         embed.author.name = `🎉 BDFD GIVEAWAY (ENDED) 🎉`
         
-        let w = this.data.winners 
+        let w = reroll ? 1 : this.data.winners 
         
         const users = await this.fetchAllReactions()
         

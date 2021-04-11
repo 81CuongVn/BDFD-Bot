@@ -22,9 +22,21 @@ module.exports = {
         
         const target = client.functions.getData(member.id)
         
-        if (client.bjs.has(member.id)) return message.channel.send(`Unable to rob this user.`), message.deleteCooldown()
+        if (client.bjs && client.bjs.has(member.id)) return message.channel.send(`Unable to rob this user.`), message.deleteCooldown()
         
         if (target.gang && data.gang && target.gang_id === data.gang_id) return message.channel.send(`You cannot rob members of the same gang.`), message.deleteCooldown()
+        
+        if (BigInt(target.money).shorten().includes("∞")) {
+            const embed = new client.discord.MessageEmbed()
+            .setTimestamp()
+            .setAuthor(message.author.tag, message.author.displayAvatarURL({
+            dynamic: true
+            }))
+            .setColor("RED")
+            .setDescription(`You cannot rob ${member.user.tag} because they have Infinite money.`)
+            message.channel.send(embed)
+            return 
+        }
         
         if (BigInt(target.money) < 1) {
             const embed = new client.discord.MessageEmbed()

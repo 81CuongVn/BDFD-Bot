@@ -15,7 +15,7 @@ module.exports = {
         
         if (!args.length) return message.channel.send(`No item name was given.`)
         
-        const name = args.join(" ")
+        const name = args.join(" ").replace(/cock/i, "chicken")
         
         const embed = new client.discord.MessageEmbed()
         .setColor("RED")

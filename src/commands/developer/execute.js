@@ -13,8 +13,20 @@ module.exports = {
     execute: async (client, message, args) => {
         const m = await message.channel.send(`Executing \`${args.join(" ")}\`...`)
         
-        const output = await exec(args.join(" "))
+        try {
+            var output = await require("child_process").execSync(args.join(" "))
+        } catch (err) {
+            output = err.message
+        }
         
-        m.edit(`\`\`\`\n${Object.values(output).join("\n")}\`\`\``)
+        message.channel.send(output, {
+            code: "js",
+            split: true
+        })
+        .catch(err => {
+            message.channel.send(err.message, {
+                code: "js"
+            })
+        })
     }
 }
